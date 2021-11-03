@@ -1,89 +1,93 @@
-const VELOCITY = 160;
+const VELOCITY = 160
 const BOUNCE = 0.2
 
-export default class Player {
-    constructor(factory, x, y, key, frame) {
-        this.sprite = factory.add.sprite(x, y, key, frame);
-        this.sprite.setBounce(BOUNCE);
-        this.sprite.setCollideWorldBounds(true);
-    };
+export default class Player extends Phaser.Physics.Arcade.Sprite {
+    /**
+     * @param {Phaser.Scene} scene
+     * @param {number} x
+     * @param {number} y
+     * @param {string} texture
+     */
+    constructor(scene, x, y, key) {
+        super(scene, x, y, key)
+        scene.add.existing(this)
+        scene.physics.add.existing(this)
 
+        // Set the player physics properties
+        this.setBounce(BOUNCE)
+        this.setCollideWorldBounds(true)
+    }
+
+     /**
+     * 
+     * @param {Phaser.GameObjects.Sprite} vehicle 
+     */
     update(cursors) {
-        if (this.vehicle != null) {
-            this.moveWithVehicle();
+        if (this.vehicle) {
+            this.moveWithVehicle()
         } else {
-            this.moveSelf(cursors);
+            this.moveSelf(cursors)
         }
-    };
+    }
 
+    /**
+     * 
+     * @param {Phaser.GameObjects.Sprite} vehicle 
+     */
     enterVehicle(vehicle) {
-        this.vehicle = vehicle;
-    };
+        this.vehicle = vehicle
+    }
 
     exitVehicle() {
-        this.vehicle = null;
-    };
+        this.vehicle = null
+    }
 
     moveWithVehicle() {
-        if (this.vehicle == null) {
-            return 
+        if (this.vehicle) {    
+            this.x = this.vehicle.x
+            this.y = this.vehicle.y
         }
-
-        this.sprite.x = this.vehicle.sprite.x;
-        this.sprite.y = this.vehicle.sprite.y;
     }
 
 
+    /**
+     * 
+     * @param {@param {Phaser.Types.Input.Keyboard.CursorKeys} cursors 
+     */
     moveSelf(cursors) {
+        /**  
+         * horizontal and vertical movement are handled independantly
+         *
+         * for both with set velocity if a key pressed and set it to
+         * 0 if no key is pressed 
+         */
+
+        // horizontal
         if (cursors.left.isDown)
         {
-            this.moveLeft()
+            this.setVelocityX(VELOCITY * -1)
         }
         else if (cursors.right.isDown)
         {
-            this.moveRight()
+            this.setVelocityX(VELOCITY)
         }
         else
         {
-            this.stopX()
+            this.setVelocityX(0)
         }
 
+        // vertical
         if (cursors.up.isDown)
         {
-            this.moveUp()
+            this.setVelocityY(VELOCITY * -1)
         }
         else if (cursors.down.isDown)
         {
-            this.moveDown();
+            this.setVelocityY(VELOCITY * 1)
         }
         else 
         {
-            this.stopY();
+            this.setVelocityY(0)
         }
-    };
-
-
-    moveLeft() {
-        this.sprite.setVelocityX(VELOCITY * -1);
-    };
-
-    moveRight() {
-        this.sprite.setVelocityX(VELOCITY);
-    };
-
-    moveUp() {
-        this.sprite.setVelocityY(VELOCITY * -1);
-    };
-
-    moveDown() {
-        this.sprite.setVelocityY(VELOCITY * 1);
-    };
-
-    stopX() {
-        this.sprite.setVelocityX(0);
-    };
-
-    stopY() {
-        this.sprite.setVelocityY(0);
-    };
+    }
 }
