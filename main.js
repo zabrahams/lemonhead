@@ -1,12 +1,21 @@
 import Player from "./lib/player.js";
 import Sled from "./lib/sled.js";
 
+const WINDOW_WIDTH = 800;
+const WINDOW_HEIGHT = 600;
+
+const PLAYER_START_X = 100;
+const PLAYER_START_Y = 450;
+const SLED_START_X = 400;
+const SLED_START_Y = 140;
+const SLED_DISMOUNT_MOVE_X = 100;
+
 export default class Main {
     constructor() {
         var config = {
             type: Phaser.AUTO,
-            width: 800,
-            height: 600,
+            width: WINDOW_WIDTH,
+            height: WINDOW_HEIGHT,
             physics: {
                 default: 'arcade',
                 arcade: {
@@ -36,8 +45,8 @@ export default class Main {
             this.add.image(400, 300, 'ice_world'); 
 
 
-            player = new Player(this.physics, 100, 450, 'luna');
-            sled = new Sled(this.physics, 400, 140, 'sled')
+            player = new Player(this.physics, PLAYER_START_X, PLAYER_START_Y, 'luna');
+            sled = new Sled(this.physics, SLED_START_X, SLED_START_Y, 'sled', null, WINDOW_WIDTH-10)
             window.player = player
             this.physics.add.overlap(player.sprite, sled.sprite, function () {
                 player.enterVehicle(sled)
@@ -49,8 +58,8 @@ export default class Main {
         function update ()
         {
             var cursors = this.input.keyboard.createCursorKeys();
-            if (player.vehicle == sled && player.sprite.x >= 700) {
-                player.sprite.y += 100;
+            if (player.vehicle == sled && player.sprite.x >= WINDOW_WIDTH-40-(player.sprite.width/2)) {
+                player.sprite.y += SLED_DISMOUNT_MOVE_X;
                 player.exitVehicle();
             }
             player.update(cursors)
