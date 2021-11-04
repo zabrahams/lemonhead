@@ -51,7 +51,7 @@ export default class Sled extends Phaser.Physics.Arcade.Sprite  {
          * return
          * 
          * If if has returned to starting position, update its state to stop
-         * returing
+         * returning
          */
         if (this.x >= this.endSlideXPos) {
             this.sliding = false
