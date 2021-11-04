@@ -9,6 +9,7 @@ const PLAYER_START_Y = 450
 const SLED_START_X = 400
 const SLED_START_Y = 140
 const SLED_DISMOUNT_MOVE_X = 100
+
 export default class IceWorld extends Phaser.Scene
 {
     /** @type {Phaser.Types.Input.Keyboard.CursorKeys} */
