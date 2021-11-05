@@ -13,7 +13,7 @@ export default new Phaser.Game ({
     type: Phaser.AUTO,
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT,
-    scene: [Shinya, WorldMap, IceWorld, Hut, Backpack],
+    scene: [WorldMap, IceWorld, Shinya, Hut, Backpack],
     physics: {
         default: 'arcade',
         arcade: {
