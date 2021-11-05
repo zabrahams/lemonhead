@@ -4,6 +4,7 @@ import WorldMap from './scenes/worldMap.js'
 import IceWorld from './scenes/iceWorld.js'
 import Backpack from './scenes/backpack.js'
 import Shinya from './scenes/shinya.js'
+import Hut from './scenes/hut.js'
 
 const WINDOW_WIDTH = 800
 const WINDOW_HEIGHT = 600
@@ -12,7 +13,7 @@ export default new Phaser.Game ({
     type: Phaser.AUTO,
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT,
-    scene: [WorldMap, IceWorld, Shinya, Backpack],
+    scene: [Shinya, WorldMap, IceWorld, Hut, Backpack],
     physics: {
         default: 'arcade',
         arcade: {

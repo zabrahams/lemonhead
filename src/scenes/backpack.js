@@ -1,6 +1,6 @@
 import Phaser from '../lib/phaser.js'
 
-import WorldMapButton from '../entities/worldMapButton.js'
+import WorldMapButton, {preloadWorldMapButton} from '../entities/worldMapButton.js'
 
 
 export default class Backpack extends Phaser.Scene
@@ -12,7 +12,7 @@ export default class Backpack extends Phaser.Scene
 
     preload () 
     {
-        this.load.image('world_map_button', 'assets/world_button.png')
+        preloadWorldMapButton(this)
         this.load.image('luna', 'assets/luna.png')
 
         this.load.image('backpack', 'assets/backpack.png')

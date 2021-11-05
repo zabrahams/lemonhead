@@ -2,6 +2,17 @@
 const X_VELOCITY = 100
 const Y_VELOCITY = 60
 
+const TEXTURE = 'sled'
+const TEXTURE_ASSET = 'assets/sled.png'
+
+/**
+ * 
+ * @param {scene} Phaser.Scene 
+ */
+ export function preloadSled(scene) {
+    scene.load.image(TEXTURE, TEXTURE_ASSET)
+} 
+
 export default class Sled extends Phaser.Physics.Arcade.Sprite  {
 
     /** @type {boolean}  */
@@ -18,11 +29,10 @@ export default class Sled extends Phaser.Physics.Arcade.Sprite  {
      * @param {Phaser.Scene} scene
      * @param {number} x
      * @param {number} y
-     * @param {string} texture
      * @param {number} endSlideXPos 'the x value where the sled ends its slide' 
      */
-    constructor(scene, x, y, texture, endSlideXPos) {
-            super(scene, x, y, texture)
+    constructor(scene, x, y, endSlideXPos) {
+            super(scene, x, y, TEXTURE)
             scene.add.existing(this)
             scene.physics.add.existing(this)
             

@@ -1,15 +1,24 @@
 const VELOCITY = 160
 const BOUNCE = 0.2
 
+const TEXTURE='luna'
+const TEXTURE_ASSET='assets/luna.png'
+
+/**
+ * 
+ * @param {scene} Phaser.Scene 
+ */
+export function preloadPlayer(scene) {
+    scene.load.image(TEXTURE, TEXTURE_ASSET)
+}
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     /**
      * @param {Phaser.Scene} scene
      * @param {number} x
      * @param {number} y
-     * @param {string} texture
      */
-    constructor(scene, x, y, key) {
-        super(scene, x, y, key)
+    constructor(scene, x, y) {
+        super(scene, x, y, TEXTURE)
         scene.add.existing(this)
         scene.physics.add.existing(this)
 
