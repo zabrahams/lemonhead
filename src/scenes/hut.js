@@ -22,7 +22,7 @@ export default class Hut extends Phaser.Scene
 
     preload ()
     {
-        // this.load.image('shinya', 'assets/shinya.png')
+        this.load.image('hut', 'assets/hut.png')
         preloadNavBar(this)
         preloadPlayer(this)
     }
@@ -33,7 +33,7 @@ export default class Hut extends Phaser.Scene
         this.cursors = this.input.keyboard.createCursorKeys()
 
         // Set the background image
-        // this.add.image(400, 300, 'shinya') 
+        this.add.image(400, 300, 'hut') 
 
         // Create the nav bar
         new NavBar(this, 50, this.scale.height/2)
