@@ -3,6 +3,8 @@ import Phaser from '../lib/phaser.js'
 export default class WorldMap extends Phaser.Scene
 {
     /** @type {Phaser.GameObjects.Zone} */
+    buyTwiceButton
+    /** @type {Phaser.GameObjects.Zone} */
     iceWorldButton
     /** @type {Phaser.GameObjects.Zone} */
     shinyaButtonUpper
@@ -25,6 +27,13 @@ export default class WorldMap extends Phaser.Scene
         /** These values are gross and hardcoded, but given the weird nature of the underlying map
         * it's hard to make them easily manipulable!
         */
+
+         this.buyTwiceButton = this.add.zone(430, 140, 86, 86)
+         this.buyTwiceButton.setInteractive()
+         this.buyTwiceButton.on('pointerdown', () => {
+             this.scene.start('buyTwice')
+         }, this)
+ 
 
         this.iceWorldButton = this.add.zone(368, 264, 130, 100)
         this.iceWorldButton.setInteractive()
