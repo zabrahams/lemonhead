@@ -7,7 +7,11 @@ export default class WorldMap extends Phaser.Scene
     /** @type {Phaser.GameObjects.Zone} */
     iceWorldButton
     /** @type {Phaser.GameObjects.Zone} */
+    lemonGlueButton
+    /** @type {Phaser.GameObjects.Zone} */
     shinyaButtonUpper
+    /** @type {Phaser.GameObjects.Zone} */
+    terrorIslandButton
     /** @type {Phaser.GameObjects.Zone} */
     shinyaButtonLower
 
@@ -41,6 +45,11 @@ export default class WorldMap extends Phaser.Scene
             this.scene.start('iceWorld')
         }, this)
 
+        this.lemonGlueButton = this.add.zone(192, 436, 124, 66)
+        this.lemonGlueButton.setInteractive()
+        this.lemonGlueButton.on('pointerdown', () => {
+            this.scene.start('lemonGlue')
+        }, this)
 
         this.shinyaButtonUpper = this.add.zone(240, 146, 160, 130)
         this.shinyaButtonUpper.setInteractive()
@@ -52,6 +61,12 @@ export default class WorldMap extends Phaser.Scene
         this.shinyaButtonUpper.setInteractive()
         this.shinyaButtonUpper.on('pointerdown', () => {
             this.scene.start('shinya')
+        }, this)
+
+        this.terrorIslandButton = this.add.zone(472, 362, 80, 96)
+        this.terrorIslandButton.setInteractive()
+        this.terrorIslandButton.on('pointerdown', () => {
+            this.scene.start('terrorIsland')
         }, this)
     }
 }
