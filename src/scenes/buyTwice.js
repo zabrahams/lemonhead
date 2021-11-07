@@ -2,6 +2,9 @@ import Phaser from '../lib/phaser.js'
 import Player, {preloadPlayer} from "../entities/player.js"
 import NavBar, {preloadNavBar} from '../entities/navBar.js'
 
+import Door from '../entities/door.js'
+
+
 const PLAYER_START_X = 100
 const PLAYER_START_Y = 450
 
@@ -40,6 +43,15 @@ export default class BuyTwice extends Phaser.Scene
 
         // Create the player at their starting position
         this.player = new Player(this, PLAYER_START_X, PLAYER_START_Y)
+
+        // kitchen door
+        new Door(this, 734, 420, 30, 60, this.player, 'kitchen')
+
+          // hospital door
+          new Door(this, 480, 440, 40, 80, this.player, 'hut')
+
+          // store door
+          new Door(this, 190, 470, 40, 70, this.player, 'hut')
     }
 
 

@@ -1,6 +1,8 @@
 import Phaser from '../lib/phaser.js'
 import Player, {preloadPlayer} from "../entities/player.js"
 import NavBar, {preloadNavBar} from '../entities/navBar.js'
+import Door from '../entities/door.js'
+
 
 const PLAYER_START_X = 100
 const PLAYER_START_Y = 450
@@ -40,6 +42,9 @@ export default class LemonGlue extends Phaser.Scene
 
         // Create the player at their starting position
         this.player = new Player(this, PLAYER_START_X, PLAYER_START_Y)
+
+        // Lemon glue door
+        new Door(this, 374, 340, 80, 60, this.player, 'hut')
     }
 
 

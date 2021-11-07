@@ -3,18 +3,18 @@ import NavBar, {preloadNavBar} from '../entities/navBar.js'
 
 
 
-export default class TerrorIsland extends Phaser.Scene
+export default class Kitchen extends Phaser.Scene
 {
 
     constructor() 
     {
-        super('terrorIsland')
+        super('kitchen')
     }
 
 
     preload ()
     {
-        this.load.image('terrorIsland', 'assets/terror_island.png')
+        this.load.image('kitchen', 'assets/kitchen.png')
         preloadNavBar(this)
     }
 
@@ -24,7 +24,7 @@ export default class TerrorIsland extends Phaser.Scene
         this.cursors = this.input.keyboard.createCursorKeys()
 
         // Set the background image
-        this.add.image(400, 300, 'terrorIsland') 
+        this.add.image(400, 300, 'kitchen') 
 
         // Create the nav bar
         new NavBar(this, 50, this.scale.height/2)

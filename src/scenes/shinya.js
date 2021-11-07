@@ -1,6 +1,7 @@
 import Phaser from '../lib/phaser.js'
 import Player, {preloadPlayer} from "../entities/player.js"
 import NavBar, {preloadNavBar} from '../entities/navBar.js'
+import Door from '../entities/door.js'
 
 const PLAYER_START_X = 100
 const PLAYER_START_Y = 450
@@ -42,11 +43,7 @@ export default class Shinya extends Phaser.Scene
         this.player = new Player(this, PLAYER_START_X, PLAYER_START_Y)
 
         // make a door that moves you to the hut if touched
-       const door = this.add.zone(484, 316, 30, 30)
-       this.physics.add.existing(door)
-        this.physics.add.overlap(this.player, door, function() {
-            this.scene.start('hut')
-        }, undefined, this)
+        new Door(this, 484, 316, 30, 30, this.player, 'hut')
     }
 
 
