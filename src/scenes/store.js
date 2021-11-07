@@ -1,20 +1,18 @@
 import Phaser from '../lib/phaser.js'
 import NavBar, {preloadNavBar} from '../entities/navBar.js'
 
-
-
-export default class Kitchen extends Phaser.Scene
+export default class Store extends Phaser.Scene
 {
 
     constructor() 
     {
-        super('kitchen')
+        super('store')
     }
 
 
     preload ()
     {
-        this.load.image('kitchen', 'assets/kitchen.png')
+        // this.load.image('store', 'assets/store.png')
         preloadNavBar(this)
     }
 
@@ -24,9 +22,10 @@ export default class Kitchen extends Phaser.Scene
         this.cursors = this.input.keyboard.createCursorKeys()
 
         // Set the background image
-        this.add.image(400, 300, 'kitchen') 
+        // this.add.image(400, 300, 'store') 
 
         // Create the nav bar
         new NavBar(this, 50, this.scale.height/2)
+
     }
 }

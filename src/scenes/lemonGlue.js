@@ -44,7 +44,7 @@ export default class LemonGlue extends Phaser.Scene
         this.player = new Player(this, PLAYER_START_X, PLAYER_START_Y)
 
         // Lemon glue door
-        new Door(this, 374, 340, 80, 60, this.player, 'hut')
+        new Door(this, 374, 340, 80, 60, this.player, 'lemonheadStore')
     }
 
 

@@ -5,8 +5,8 @@ import NavBar, {preloadNavBar} from '../entities/navBar.js'
 import Door from '../entities/door.js'
 
 
-const PLAYER_START_X = 100
-const PLAYER_START_Y = 450
+const PLAYER_START_X = 400
+const PLAYER_START_Y = 750
 
 export default class BuyTwice extends Phaser.Scene
 {
@@ -48,10 +48,10 @@ export default class BuyTwice extends Phaser.Scene
         new Door(this, 734, 420, 30, 60, this.player, 'kitchen')
 
           // hospital door
-          new Door(this, 480, 440, 40, 80, this.player, 'hut')
+          new Door(this, 480, 440, 40, 80, this.player, 'hospital')
 
           // store door
-          new Door(this, 190, 470, 40, 70, this.player, 'hut')
+          new Door(this, 190, 470, 40, 70, this.player, 'store')
     }
 
 
