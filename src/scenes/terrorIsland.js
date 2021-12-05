@@ -1,7 +1,9 @@
 import Phaser from '../lib/phaser.js'
 import NavBar, {preloadNavBar} from '../entities/navBar.js'
+import Lemonhead, { preloadLemonhead } from '../entities/lemonhead.js'
 
-
+const LEMONHEAD_START_X = 400
+const LEMONHEAD_START_Y = 200
 
 export default class TerrorIsland extends Phaser.Scene
 {
@@ -16,6 +18,7 @@ export default class TerrorIsland extends Phaser.Scene
     {
         this.load.image('terrorIsland', 'assets/terror_island.png')
         preloadNavBar(this)
+        preloadLemonhead(this)
     }
 
      create ()
@@ -28,11 +31,12 @@ export default class TerrorIsland extends Phaser.Scene
 
         // Create the nav bar
         new NavBar(this, 50, this.scale.height/2)
-
+        this.lemonhead = new Lemonhead(this, LEMONHEAD_START_X, LEMONHEAD_START_Y)
     }
 
 
      update ()
     {
+        this.lemonhead.update(this.cursors)
     }
 }
