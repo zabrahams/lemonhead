@@ -1,9 +1,12 @@
+import Bullet, { preloadBullet } from "./bullet.js"
+
 const BOUNCE = 0.2
 const TEXTURE='lemonhead'
 const TEXTURE_ASSET='assets/lemonhead.png'
 
 const ANGULAR_VELOCITY=160
 const VELOCITY=160
+const BULLET_VELOCITY=190
 
 /**
  * 
@@ -11,6 +14,7 @@ const VELOCITY=160
  */
 export function preloadLemonhead(scene) {
     scene.load.image(TEXTURE, TEXTURE_ASSET)
+    preloadBullet(scene)
 }
 
 export default class Lemonhead extends Phaser.Physics.Arcade.Sprite {
@@ -51,6 +55,18 @@ export default class Lemonhead extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityX(0)
             this.setVelocityY(0)
         }
+    }
+
+    fireBullet() {
+        const [xDelta, yDelta] = calculateHeading(this.rotation, BULLET_VELOCITY)
+        
+        return new Bullet(
+            this.scene, 
+            this.x,
+            this.y,
+            xDelta,
+            -1*yDelta
+        )
     }
 }
 

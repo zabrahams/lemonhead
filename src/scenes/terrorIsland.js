@@ -38,5 +38,8 @@ export default class TerrorIsland extends Phaser.Scene
      update ()
     {
         this.lemonhead.update(this.cursors)
+        if (this.cursors.space.isDown) {
+            this.lemonhead.fireBullet()
+        }
     }
 }
