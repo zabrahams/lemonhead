@@ -6,7 +6,8 @@ const TEXTURE_ASSET='assets/lemonhead.png'
 
 const ANGULAR_VELOCITY=160
 const VELOCITY=160
-const BULLET_VELOCITY=190
+const BULLET_VELOCITY=200
+const BULLET_DELAY=300 // how often you can fire (in milliseconds)
 
 /**
  * 
@@ -31,6 +32,7 @@ export default class Lemonhead extends Phaser.Physics.Arcade.Sprite {
         // Set the player physics properties
         this.setBounce(BOUNCE)
         this.setCollideWorldBounds(true)
+        this.canFire = true
     }
 
     update(cursors) {
@@ -57,15 +59,24 @@ export default class Lemonhead extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    fireBullet() {
+    fireBullet(bullets) {
+        if (!this.canFire) {
+            return
+        }
+        this.canFire = false
+        setTimeout(() => {
+            this.canFire = true
+        }, BULLET_DELAY)
+
         const [xDelta, yDelta] = calculateHeading(this.rotation, BULLET_VELOCITY)
         
-        return new Bullet(
+        bullets.push(new Bullet(
             this.scene, 
             this.x,
             this.y,
             xDelta,
             -1*yDelta
+            )
         )
     }
 }

@@ -11,6 +11,7 @@ export default class TerrorIsland extends Phaser.Scene
     constructor() 
     {
         super('terrorIsland')
+        this.bullets = []
     }
 
 
@@ -39,7 +40,13 @@ export default class TerrorIsland extends Phaser.Scene
     {
         this.lemonhead.update(this.cursors)
         if (this.cursors.space.isDown) {
-            this.lemonhead.fireBullet()
+            this.lemonhead.fireBullet(this.bullets)
         }
+    
+        this.bullets = this.bullets.filter(bullet =>
+            bullet.x > 0 &&
+                bullet.x < this.scale.width &&
+                bullet.y > 0 &&
+                bullet.y < this.scale.height)
     }
 }

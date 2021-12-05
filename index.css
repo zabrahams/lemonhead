@@ -1,0 +1,10 @@
+html {
+    background: rgb(51, 51, 51);
+}
+
+canvas {
+    margin: auto;
+    display: block;
+    padding: 50px;
+    width: 800px;
+}

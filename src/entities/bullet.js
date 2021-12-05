@@ -23,7 +23,7 @@ export default class Bullet extends Phaser.Physics.Arcade.Sprite {
 
         // Set the player physics properties
         this.setBounce(BOUNCE)
-        this.setCollideWorldBounds(true)
+        this.setCollideWorldBounds(false)
 
         this.setVelocityX(xDelta)
         this.setVelocityY(yDelta)
