@@ -12,7 +12,7 @@ export default class Store extends Phaser.Scene
 
     preload ()
     {
-        // this.load.image('store', 'assets/store.png')
+        this.load.image('buyNice', 'assets/buy_nice.png')
         preloadNavBar(this)
     }
 
@@ -22,10 +22,10 @@ export default class Store extends Phaser.Scene
         this.cursors = this.input.keyboard.createCursorKeys()
 
         // Set the background image
-        // this.add.image(400, 300, 'store') 
+        this.add.image(400, 300, 'buyNice') 
 
         // Create the nav bar
-        new NavBar(this, 50, this.scale.height/2)
+        new NavBar(this, this.scale.width-100, this.scale.height/2 + 100)
 
     }
 }
