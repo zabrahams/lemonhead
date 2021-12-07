@@ -29,6 +29,7 @@ const IMMUNITY_LENGTH = 2000
 const FLASH_DURATION = 1000
 const FLASH_RED = 200
 
+const MAX_CORONAS = 10
 
 export default class TerrorIsland extends Phaser.Scene
 {
@@ -37,6 +38,7 @@ export default class TerrorIsland extends Phaser.Scene
     {
         super('terrorIsland')
         this.lives = 5
+        this.currentCoronas = 0
         this.immune = false
     }
 
@@ -99,7 +101,14 @@ export default class TerrorIsland extends Phaser.Scene
             this.corona,
             this.bullets,
             () => {
-                alert("you win")
+                this.currentCoronas++
+                if (this.currentCoronas === MAX_CORONAS) {
+                    alert("you win")
+                }
+                this.physics.world.disable(this.corona)
+
+                console.log(this.currentCoronas)
+                this.corona.reset(this, CORONA_START_X, CORONA_START_Y)
             },
             undefined,
             this
