@@ -27,7 +27,7 @@ export default class Lemonhead extends Phaser.Physics.Arcade.Sprite {
     }
 
     static image(scene, x, y) {
-        scene.add.image(x, y, TEXTURE).setScale(.7)
+        scene.add.image(x, y, TEXTURE).setScale(.75)
     }
 
     /**
@@ -63,7 +63,7 @@ export default class Lemonhead extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    fireBullet() {
+    fireBullet(bullets) {
         if (!this.canFire) {
             return
         }
@@ -74,8 +74,8 @@ export default class Lemonhead extends Phaser.Physics.Arcade.Sprite {
 
         const [xDelta, yDelta] = calculateHeading(this.rotation, BULLET_VELOCITY)
         
-        return new Bullet(
-            this.scene, 
+        Bullet.addToGroup(
+            bullets, 
             this.x,
             this.y,
             xDelta,

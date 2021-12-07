@@ -9,16 +9,17 @@ export default class Bullet extends Phaser.Physics.Arcade.Sprite {
      * @param {number} y
      */
     constructor(scene, x, y, xDelta, yDelta) {
-        super(scene, x, y, TEXTURE)
-        scene.add.existing(this)
-        scene.physics.add.existing(this)
+       super(scene, x, y, TEXTURE)
 
-        // Set the player physics properties
-        this.setBounce(BOUNCE)
-        this.setCollideWorldBounds(false)
+        setup(this, scene, xDelta, yDelta)
+    }
 
-        this.setVelocityX(xDelta)
-        this.setVelocityY(yDelta)
+    static addToGroup(bullets, x, y, xDelta, yDelta) {
+        const bullet = bullets.getFirstDead(true, x, y, TEXTURE)
+
+        setup(bullet, bullets.scene, xDelta, yDelta)
+
+        return bullet
     }
 
     /**
@@ -28,4 +29,19 @@ export default class Bullet extends Phaser.Physics.Arcade.Sprite {
     static  preload(scene) {
         scene.load.image(TEXTURE, TEXTURE_ASSET)
     }
+}
+
+function setup(bullet, scene, xDelta, yDelta) {
+    bullet.setVisible(true)
+    bullet.setActive(true)
+    scene.add.existing(bullet)
+
+    scene.physics.world.enable(bullet)        
+
+    // Set the player physics properties
+    bullet.setBounce(BOUNCE)
+    bullet.setCollideWorldBounds(false)
+
+    bullet.setVelocityX(xDelta)
+    bullet.setVelocityY(yDelta)
 }

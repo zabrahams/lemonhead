@@ -2,6 +2,7 @@ import Phaser from '../lib/phaser.js'
 import NavBar from '../entities/navBar.js'
 import Lemonhead from '../entities/lemonhead.js'
 import Corona from '../entities/corona.js'
+import Bullet from "../entities/bullet.js"
 
 const LEMONHEAD_START_X = 400
 const LEMONHEAD_START_Y = 200
@@ -17,7 +18,7 @@ const LEMONHEAD_LIVES_TEXT_Y  = 484
 
 const PLAY_AREA_TOP = 94
 const PLAY_AREA_BOTTOM = 400
-const PLAY_AREA_HEIGHT =  PLAY_AREA_BOTTOM - PLAY_AREA_TOP
+const PLAY_AREA_HEIGHT = PLAY_AREA_BOTTOM - PLAY_AREA_TOP
 
 const PLAY_AREA_RIGHT = 628
 const PLAY_AREA_LEFT = 170
@@ -35,7 +36,6 @@ export default class TerrorIsland extends Phaser.Scene
     constructor() 
     {
         super('terrorIsland')
-        this.bullets = []
         this.lives = 5
         this.immune = false
     }
@@ -68,9 +68,6 @@ export default class TerrorIsland extends Phaser.Scene
         this.lemonhead = new Lemonhead(this, LEMONHEAD_START_X, LEMONHEAD_START_Y)
         this.corona = new Corona(this, CORONA_START_X, CORONA_START_Y)
 
-
-        this.bullets = []
-
         this.physics.add.overlap(
             this.lemonhead,
             this.corona,
@@ -93,6 +90,20 @@ export default class TerrorIsland extends Phaser.Scene
             undefined,
             this
         )
+
+        this.bullets = this.physics.add.group({
+            classType: Bullet
+        })
+
+        this.physics.add.overlap(
+            this.corona,
+            this.bullets,
+            () => {
+                alert("you win")
+            },
+            undefined,
+            this
+        )
     }
 
 
@@ -103,21 +114,14 @@ export default class TerrorIsland extends Phaser.Scene
         wrapSprite(this.corona)
 
         if (this.cursors.space.isDown) {
-            const newBullet = this.lemonhead.fireBullet(this.bullets)
-            if (newBullet) {
-                this.bullets.push(newBullet)
-            }
+            this.lemonhead.fireBullet(this.bullets)
         }
-
-        this.bullets = this.bullets.filter(bullet => {
-            const inArea = (inPlayArea(bullet.x, bullet.y))
-            if (!inArea) {
-                bullet.destroy(true)
+        
+        this.bullets.children.iterate(bullet => {
+            if (!inPlayArea(bullet.x, bullet.y)) {
+                this.bullets.killAndHide(bullet)
             }
-
-            return inArea
         })
-
     }
 
     flash () {
