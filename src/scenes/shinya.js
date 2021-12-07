@@ -1,6 +1,6 @@
 import Phaser from '../lib/phaser.js'
-import Player, {preloadPlayer} from "../entities/player.js"
-import NavBar, {preloadNavBar} from '../entities/navBar.js'
+import Player from "../entities/player.js"
+import NavBar from '../entities/navBar.js'
 import Door from '../entities/door.js'
 
 const PLAYER_START_X = 100
@@ -24,8 +24,8 @@ export default class Shinya extends Phaser.Scene
     preload ()
     {
         this.load.image('shinya', 'assets/shinya.png')
-        preloadNavBar(this)
-        preloadPlayer(this)
+        NavBar.preload(this)
+        Player.preload(this)
     }
 
      create ()

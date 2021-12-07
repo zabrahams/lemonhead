@@ -2,15 +2,6 @@ import Phaser from '../lib/phaser.js'
 
 const TEXTURE = 'world_map_button'
 const TEXTURE_ASSET = 'assets/world_button.png'
-
-/**
- * 
- * @param {scene} Phaser.Scene 
- */
- export function preloadWorldMapButton(scene) {
-    scene.load.image(TEXTURE, TEXTURE_ASSET)
-} 
-
 export default class WorldMapButton extends Phaser.GameObjects.Image 
 {
     /**
@@ -28,4 +19,12 @@ export default class WorldMapButton extends Phaser.GameObjects.Image
             scene.scene.start('worldMap')
         }, scene)        
     }
+
+    /**
+     * 
+     * @param {scene} Phaser.Scene 
+     */
+     static preload(scene) {
+        scene.load.image(TEXTURE, TEXTURE_ASSET)
+     } 
 }

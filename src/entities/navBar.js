@@ -1,18 +1,18 @@
-import WorldMapButton, {preloadWorldMapButton} from '../entities/worldMapButton.js'
-import BackpackButton, {preloadBackpackButton} from '../entities/backpackButton.js'
-
-/**
- * 
- * @param {scene} Phaser.Scene 
- */
- export function preloadNavBar(scene) {
-    preloadWorldMapButton(scene)
-    preloadBackpackButton(scene)
-} 
+import WorldMapButton from '../entities/worldMapButton.js'
+import BackpackButton from '../entities/backpackButton.js'
 
 export default class NavBar {
     constructor(scene, x, y) {
         new WorldMapButton(scene, x, y-50)
         new BackpackButton(scene, x, y+50)
     }
+
+    /**
+     * 
+     * @param {scene} Phaser.Scene 
+     */
+    static preload(scene) {
+        WorldMapButton.preload(scene)
+        BackpackButton.preload(scene)
+    } 
 }

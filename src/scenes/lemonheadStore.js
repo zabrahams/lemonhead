@@ -1,5 +1,5 @@
 import Phaser from '../lib/phaser.js'
-import NavBar, {preloadNavBar} from '../entities/navBar.js'
+import NavBar from '../entities/navBar.js'
 
 export default class LemonheadStore extends Phaser.Scene
 {
@@ -13,7 +13,7 @@ export default class LemonheadStore extends Phaser.Scene
     preload ()
     {
         this.load.image('store', 'assets/reinforcements.png')
-        preloadNavBar(this)
+        NavBar.preload(this)
     }
 
      create ()

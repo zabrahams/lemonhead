@@ -1,4 +1,4 @@
-import Bullet, { preloadBullet } from "./bullet.js"
+import Bullet from "./bullet.js"
 
 const BOUNCE = 0.2
 const TEXTURE='lemonhead'
@@ -8,15 +8,6 @@ const ANGULAR_VELOCITY=160
 const VELOCITY=160
 const BULLET_VELOCITY=200
 const BULLET_DELAY=300 // how often you can fire (in milliseconds)
-
-/**
- * 
- * @param {scene} Phaser.Scene
- */
-export function preloadLemonhead(scene) {
-    scene.load.image(TEXTURE, TEXTURE_ASSET)
-    preloadBullet(scene)
-}
 
 export default class Lemonhead extends Phaser.Physics.Arcade.Sprite {
        /**
@@ -33,6 +24,15 @@ export default class Lemonhead extends Phaser.Physics.Arcade.Sprite {
         this.setBounce(BOUNCE)
         this.setCollideWorldBounds(true)
         this.canFire = true
+    }
+
+    /**
+     * 
+     * @param {scene} Phaser.Scene
+     */
+    static preload(scene) {
+        scene.load.image(TEXTURE, TEXTURE_ASSET)
+        Bullet.preload(scene)
     }
 
     update(cursors) {
@@ -59,7 +59,7 @@ export default class Lemonhead extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    fireBullet(bullets) {
+    fireBullet() {
         if (!this.canFire) {
             return
         }
@@ -70,13 +70,12 @@ export default class Lemonhead extends Phaser.Physics.Arcade.Sprite {
 
         const [xDelta, yDelta] = calculateHeading(this.rotation, BULLET_VELOCITY)
         
-        bullets.push(new Bullet(
+        return new Bullet(
             this.scene, 
             this.x,
             this.y,
             xDelta,
             -1*yDelta
-            )
         )
     }
 }

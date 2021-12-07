@@ -3,14 +3,6 @@ const BOUNCE = 0.2
 
 const TEXTURE='luna'
 const TEXTURE_ASSET='assets/luna.png'
-
-/**
- * 
- * @param {scene} Phaser.Scene 
- */
-export function preloadPlayer(scene) {
-    scene.load.image(TEXTURE, TEXTURE_ASSET)
-}
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     /**
      * @param {Phaser.Scene} scene
@@ -25,6 +17,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // Set the player physics properties
         this.setBounce(BOUNCE)
         this.setCollideWorldBounds(true)
+    }
+
+    /**
+     * 
+     * @param {scene} Phaser.Scene 
+     */
+    static preload(scene) {
+        scene.load.image(TEXTURE, TEXTURE_ASSET)
     }
 
      /**

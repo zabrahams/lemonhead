@@ -2,14 +2,6 @@ const BOUNCE = 0.2
 const TEXTURE='bullet'
 const TEXTURE_ASSET='assets/bullet.png'
 
-/**
- * 
- * @param {scene} Phaser.Scene
- */
- export function preloadBullet(scene) {
-    scene.load.image(TEXTURE, TEXTURE_ASSET)
-}
-
 export default class Bullet extends Phaser.Physics.Arcade.Sprite {
     /**
      * @param {Phaser.Scene} scene
@@ -27,5 +19,13 @@ export default class Bullet extends Phaser.Physics.Arcade.Sprite {
 
         this.setVelocityX(xDelta)
         this.setVelocityY(yDelta)
+    }
+
+    /**
+     * 
+     * @param {scene} Phaser.Scene
+     */
+    static  preload(scene) {
+        scene.load.image(TEXTURE, TEXTURE_ASSET)
     }
 }

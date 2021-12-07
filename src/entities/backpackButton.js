@@ -2,15 +2,6 @@ import Phaser from '../lib/phaser.js'
 
 const TEXTURE = 'backpack_button'
 const TEXTURE_ASSET = 'assets/backpack_button.png'
-
-/**
- * 
- * @param {scene} Phaser.Scene 
- */
- export function preloadBackpackButton(scene) {
-    scene.load.image(TEXTURE, TEXTURE_ASSET)
-} 
-
 export default class BackpackButton extends Phaser.GameObjects.Image 
 {
     /**
@@ -27,5 +18,13 @@ export default class BackpackButton extends Phaser.GameObjects.Image
         this.on('pointerdown', () => {
             scene.scene.start('backpack')
         }, scene)        
+    }
+
+    /**
+     * 
+     * @param {scene} Phaser.Scene 
+     */
+    static preload(scene) {
+        scene.load.image(TEXTURE, TEXTURE_ASSET)
     }
 }

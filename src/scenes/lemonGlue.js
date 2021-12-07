@@ -1,6 +1,6 @@
 import Phaser from '../lib/phaser.js'
-import Player, {preloadPlayer} from "../entities/player.js"
-import NavBar, {preloadNavBar} from '../entities/navBar.js'
+import Player from "../entities/player.js"
+import NavBar from '../entities/navBar.js'
 import Door from '../entities/door.js'
 
 
@@ -25,8 +25,8 @@ export default class LemonGlue extends Phaser.Scene
     preload ()
     {
         this.load.image('lemonGlue', 'assets/lemon_glue.png')
-        preloadNavBar(this)
-        preloadPlayer(this)
+        NavBar.preload(this)
+        Player.preload(this)
     }
 
      create ()

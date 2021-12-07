@@ -5,14 +5,6 @@ const Y_VELOCITY = 60
 const TEXTURE = 'sled'
 const TEXTURE_ASSET = 'assets/sled.png'
 
-/**
- * 
- * @param {scene} Phaser.Scene 
- */
- export function preloadSled(scene) {
-    scene.load.image(TEXTURE, TEXTURE_ASSET)
-} 
-
 export default class Sled extends Phaser.Physics.Arcade.Sprite  {
 
     /** @type {boolean}  */
@@ -45,6 +37,14 @@ export default class Sled extends Phaser.Physics.Arcade.Sprite  {
             this.startXPos = x
             this.endSlideXPos = endSlideXPos-(this.displayWidth/2)
     }
+
+    /**
+     * 
+     * @param {scene} Phaser.Scene 
+     */
+    static preload(scene) {
+        scene.load.image(TEXTURE, TEXTURE_ASSET)
+    } 
 
     /**
      * Triggers the sled to start sliding down the hill

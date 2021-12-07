@@ -1,6 +1,6 @@
 import Phaser from '../lib/phaser.js'
-import Player, {preloadPlayer} from "../entities/player.js"
-import NavBar, {preloadNavBar} from '../entities/navBar.js'
+import Player from "../entities/player.js"
+import NavBar from '../entities/navBar.js'
 
 import Door from '../entities/door.js'
 
@@ -26,8 +26,8 @@ export default class BuyTwice extends Phaser.Scene
     preload ()
     {
         this.load.image('buyTwice', 'assets/buy_twice.png')
-        preloadNavBar(this)
-        preloadPlayer(this)
+        NavBar.preload(this)
+        Player.preload(this)
     }
 
      create ()
