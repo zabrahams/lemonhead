@@ -10,7 +10,7 @@ const BULLET_VELOCITY=200
 const BULLET_DELAY=300 // how often you can fire (in milliseconds)
 
 export default class Lemonhead extends Phaser.Physics.Arcade.Sprite {
-       /**
+      /**
      * @param {Phaser.Scene} scene
      * @param {number} x
      * @param {number} y
@@ -24,6 +24,10 @@ export default class Lemonhead extends Phaser.Physics.Arcade.Sprite {
         this.setBounce(BOUNCE)
         this.setCollideWorldBounds(true)
         this.canFire = true
+    }
+
+    static image(scene, x, y) {
+        scene.add.image(x, y, TEXTURE).setScale(.7)
     }
 
     /**

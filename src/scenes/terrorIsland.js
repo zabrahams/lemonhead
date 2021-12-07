@@ -9,6 +9,12 @@ const LEMONHEAD_START_Y = 200
 const CORONA_START_X = 300
 const CORONA_START_Y = 220
 
+const LEMONHEAD_LIVES_IMAGE_X = 340
+const LEMONHEAD_LIVES_IMAGE_Y  = 500
+const LEMONHEAD_LIVES_TEXT_X = 400
+const LEMONHEAD_LIVES_TEXT_Y  = 484
+
+
 const PLAY_AREA_TOP = 94
 const PLAY_AREA_BOTTOM = 400
 const PLAY_AREA_HEIGHT =  PLAY_AREA_BOTTOM - PLAY_AREA_TOP
@@ -51,6 +57,12 @@ export default class TerrorIsland extends Phaser.Scene
         // Set the background image
         this.add.image(400, 300, 'terrorIsland') 
 
+        // Set up the lives bar
+        Lemonhead.image(this, LEMONHEAD_LIVES_IMAGE_X, LEMONHEAD_LIVES_IMAGE_Y)
+        const livesStyle = { color: '#fff', fontSize: 24 }
+        this.livesText = this.add.text(LEMONHEAD_LIVES_TEXT_X, LEMONHEAD_LIVES_TEXT_Y, `x   ${this.lives}`, livesStyle)
+            .setScrollFactor(0)
+
         // Create the nav bar
         new NavBar(this, 50, this.scale.height/2)
         this.lemonhead = new Lemonhead(this, LEMONHEAD_START_X, LEMONHEAD_START_Y)
@@ -73,6 +85,7 @@ export default class TerrorIsland extends Phaser.Scene
                    alert("boom")
                }
                this.immune = true
+               this.livesText.text = `x   ${this.lives}`
                setTimeout(() => {
                    this.immune = false
                }, IMMUNITY_LENGTH)
