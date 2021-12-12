@@ -1,6 +1,8 @@
 import Phaser from '../lib/phaser.js'
 
 import WorldMapButton from '../entities/worldMapButton.js'
+import {CURRENCY_KEY} from '../dataConstants.js'
+
 export default class Backpack extends Phaser.Scene
 {
     constructor() 
@@ -24,7 +26,9 @@ export default class Backpack extends Phaser.Scene
 
         // currency
         const currencyStyle = { color: '#000', fontSize: 24 }
-        this.add.text(82, 120, '0', currencyStyle)
+        console.log(this)
+        const currentCurrency = this.registry.get(CURRENCY_KEY)
+        this.add.text(82, 120, `${currentCurrency}`, currencyStyle)
             .setScrollFactor(0)
             .setOrigin(0.5, 0)    
     }

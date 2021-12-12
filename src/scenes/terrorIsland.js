@@ -4,6 +4,8 @@ import Lemonhead from '../entities/lemonhead.js'
 import Corona from '../entities/corona.js'
 import Bullet from "../entities/bullet.js"
 
+import {CURRENCY_KEY} from '../dataConstants.js'
+
 const LEMONHEAD_START_X = 400
 const LEMONHEAD_START_Y = 200
 
@@ -37,8 +39,6 @@ export default class TerrorIsland extends Phaser.Scene
     constructor() 
     {
         super('terrorIsland')
-        this.lives = 5
-        this.currentCoronas = 0
         this.immune = false
     }
 
@@ -53,6 +53,9 @@ export default class TerrorIsland extends Phaser.Scene
 
      create ()
     {
+        this.lives = 5
+        this.currentCoronas = 0
+        
         // set up cursor keys
         this.cursors = this.input.keyboard.createCursorKeys()
 
@@ -81,7 +84,7 @@ export default class TerrorIsland extends Phaser.Scene
                this.flash()
                this.lives--
                if (this.lives < 0) {
-                   alert("boom")
+                   this.scene.start('battleLost')
                }
                this.immune = true
                this.livesText.text = `x   ${this.lives}`
@@ -103,12 +106,15 @@ export default class TerrorIsland extends Phaser.Scene
             () => {
                 this.currentCoronas++
                 if (this.currentCoronas === MAX_CORONAS) {
-                    alert("you win")
+                    this.scene.start('battleWon')
                 }
                 this.physics.world.disable(this.corona)
 
                 console.log(this.currentCoronas)
                 this.corona.reset(this, CORONA_START_X, CORONA_START_Y)
+
+                const currentDots = this.registry.get(CURRENCY_KEY)
+                this.registry.set(CURRENCY_KEY, currentDots + 1)
             },
             undefined,
             this
