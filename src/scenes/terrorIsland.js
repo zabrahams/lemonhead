@@ -3,6 +3,7 @@ import NavBar from '../entities/navBar.js'
 import Lemonhead from '../entities/lemonhead.js'
 import Corona from '../entities/corona.js'
 import Bullet from "../entities/bullet.js"
+import GreenDot from "../entities/greenDot.js"
 
 import {CURRENCY_KEY} from '../dataConstants.js'
 
@@ -28,8 +29,8 @@ const PLAY_AREA_WIDTH = PLAY_AREA_RIGHT - PLAY_AREA_LEFT
 
 const IMMUNITY_LENGTH = 2000
 
-const FLASH_DURATION = 1000
-const FLASH_RED = 200
+const FLASH_DURATION = 500
+const FLASH = 150
 
 const MAX_CORONAS = 10
 
@@ -49,6 +50,7 @@ export default class TerrorIsland extends Phaser.Scene
         NavBar.preload(this)
         Lemonhead.preload(this)
         Corona.preload(this)
+        GreenDot.preload(this)
     }
 
      create ()
@@ -76,26 +78,13 @@ export default class TerrorIsland extends Phaser.Scene
         this.physics.add.overlap(
             this.lemonhead,
             this.corona,
-            () => {
-               if (this.immune) {
-                   return
-               }
-
-               this.flash()
-               this.lives--
-               if (this.lives < 0) {
-                   this.scene.start('battleLost')
-               }
-               this.immune = true
-               this.livesText.text = `x   ${this.lives}`
-               setTimeout(() => {
-                   this.immune = false
-               }, IMMUNITY_LENGTH)
-            },
+            coronaHitsLemon(this),
             undefined,
             this
         )
-
+        this.greenDots = []
+        createGreenDots(this)
+        
         this.bullets = this.physics.add.group({
             classType: Bullet
         })
@@ -103,19 +92,7 @@ export default class TerrorIsland extends Phaser.Scene
         this.physics.add.overlap(
             this.corona,
             this.bullets,
-            () => {
-                this.currentCoronas++
-                if (this.currentCoronas === MAX_CORONAS) {
-                    this.scene.start('battleWon')
-                }
-                this.physics.world.disable(this.corona)
-
-                console.log(this.currentCoronas)
-                this.corona.reset(this, CORONA_START_X, CORONA_START_Y)
-
-                const currentDots = this.registry.get(CURRENCY_KEY)
-                this.registry.set(CURRENCY_KEY, currentDots + 1)
-            },
+            shootCorona(this),
             undefined,
             this
         )
@@ -139,9 +116,72 @@ export default class TerrorIsland extends Phaser.Scene
         })
     }
 
-    flash () {
-        this.cameras.main.flash(FLASH_DURATION, FLASH_RED)
+    flashRed () {
+        this.cameras.main.flash(FLASH_DURATION, FLASH, 0, 0)
     }
+
+    flashGreen() {
+        this.cameras.main.flash(FLASH_DURATION, 0, FLASH, 0)
+    }
+}
+
+function createGreenDots(scene) {
+    for (let i = 0; i < 10; i = i+2) {
+        const leftDot = GreenDot.image(scene, 700, ((scene.scale.height/12)*i)+100)
+        leftDot.setVisible(false)
+        scene.greenDots.push(leftDot)
+        const rightDot = GreenDot.image(scene, 750, ((scene.scale.height/12)*i)+100) 
+        rightDot.setVisible(false)
+        scene.greenDots.push(rightDot)
+    }
+}
+
+function shootCorona(scene) {
+    return () => {
+        scene.flashGreen()
+        scene.greenDots[scene.currentCoronas].setVisible(true)
+        const currentDots = scene.registry.get(CURRENCY_KEY)
+        scene.registry.set(CURRENCY_KEY, currentDots + 1)
+
+        scene.immune = true
+        setTimeout(() => {
+            scene.immune = false
+        }, IMMUNITY_LENGTH/4)
+
+        scene.currentCoronas++
+        if (scene.currentCoronas === MAX_CORONAS) {
+            scene.scene.start('battleWon')
+        }
+        scene.physics.world.disable(scene.corona)
+
+        const [startX, startY] = coronaStart()
+        scene.corona.reset(scene, startX, startY)
+    }
+}
+
+function coronaStart() {
+    const x = Math.random() * PLAY_AREA_WIDTH + PLAY_AREA_LEFT
+    const y = Math.random() * PLAY_AREA_HEIGHT + PLAY_AREA_TOP
+    return [x, y]
+}
+
+function coronaHitsLemon(scene) {
+    return () => {
+        if (scene.immune) {
+            return
+        }
+
+        scene.flashRed()
+        scene.lives--
+        if (scene.lives < 0) {
+            scene.scene.start('battleLost')
+        }
+        scene.immune = true
+        scene.livesText.text = `x   ${scene.lives}`
+        setTimeout(() => {
+            scene.immune = false
+        }, IMMUNITY_LENGTH)
+     }
 }
 
 function wrapSprite(sprite) {
