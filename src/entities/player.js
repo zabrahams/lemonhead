@@ -3,6 +3,10 @@ const BOUNCE = 0.2
 
 const TEXTURE='luna'
 const TEXTURE_ASSET='assets/luna.png'
+const GREY_TEXTURE='lunaGrey'
+const GREY_TEXTURE_ASSET='assets/luna_grey.png'
+import {IS_GREY_KEY} from '../dataConstants.js'
+
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     /**
      * @param {Phaser.Scene} scene
@@ -10,7 +14,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
      * @param {number} y
      */
     constructor(scene, x, y) {
-        super(scene, x, y, TEXTURE)
+        let texture
+
+        if (scene.registry.get(IS_GREY_KEY)) {
+            texture = GREY_TEXTURE
+        } else {
+            texture = TEXTURE
+        }
+        
+        super(scene, x, y, texture)
         scene.add.existing(this)
         scene.physics.add.existing(this)
 
@@ -24,7 +36,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
      * @param {scene} Phaser.Scene 
      */
     static preload(scene) {
-        scene.load.image(TEXTURE, TEXTURE_ASSET)
+        let texture, textureAsset
+        if (scene.registry.get(IS_GREY_KEY)) {
+            texture = GREY_TEXTURE
+            textureAsset = GREY_TEXTURE_ASSET
+        } else {
+            texture = TEXTURE
+            textureAsset = TEXTURE_ASSET
+        }
+
+        scene.load.image(texture, textureAsset)
     }
 
      /**

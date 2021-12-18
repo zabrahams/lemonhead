@@ -5,7 +5,7 @@ import Corona from '../entities/corona.js'
 import Bullet from "../entities/bullet.js"
 import GreenDot from "../entities/greenDot.js"
 
-import {CURRENCY_KEY} from '../dataConstants.js'
+import {CURRENCY_KEY, IS_GREY_KEY} from '../dataConstants.js'
 
 const LEMONHEAD_START_X = 400
 const LEMONHEAD_START_Y = 200
@@ -173,7 +173,8 @@ function coronaHitsLemon(scene) {
 
         scene.flashRed()
         scene.lives--
-        if (scene.lives < 0) {
+        if (scene.lives <= 0) {
+            scene.registry.set(IS_GREY_KEY, true)
             scene.scene.start('battleLost')
         }
         scene.immune = true
