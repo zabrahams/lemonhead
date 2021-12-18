@@ -33,7 +33,6 @@ export default new Phaser.Game ({
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT,
     scene: [
-        Hospital,
         WorldMap,  
         BuyTwice, 
         IceWorld,
@@ -42,7 +41,7 @@ export default new Phaser.Game ({
         TerrorIsland, 
         BattleWon,
         BattleLost,
-        // Hospital,
+        Hospital,
         Hut, 
         Kitchen, 
         LemonheadStore,
