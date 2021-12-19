@@ -5,7 +5,7 @@ import Corona from '../entities/corona.js'
 import Bullet from "../entities/bullet.js"
 import GreenDot from "../entities/greenDot.js"
 
-import {CURRENCY_KEY, IS_GREY_KEY} from '../dataConstants.js'
+import {CURRENCY_KEY, IS_GREY_KEY, MAX_LIVES_KEY} from '../dataConstants.js'
 
 const LEMONHEAD_START_X = 400
 const LEMONHEAD_START_Y = 200
@@ -55,7 +55,7 @@ export default class TerrorIsland extends Phaser.Scene
 
      create ()
     {
-        this.lives = 5
+        this.lives = this.registry.get(MAX_LIVES_KEY)
         this.currentCoronas = 0
         
         // set up cursor keys

@@ -15,17 +15,25 @@ import Kitchen from './scenes/kitchen.js'
 import Store from './scenes/store.js'
 import LemonheadStore from './scenes/lemonheadStore.js'
 
-import {CURRENCY_KEY, IS_GREY_KEY} from './dataConstants.js'
+import {
+    CURRENCY_KEY, 
+    IS_GREY_KEY, 
+    REINFORCEMENT_PURCHASES_KEY, 
+    MAX_LIVES_KEY
+} from './dataConstants.js'
 
 const WINDOW_WIDTH = 800
 const WINDOW_HEIGHT = 600
 
-const STARTING_CURRENCY = 0
+const STARTING_CURRENCY = 100
 const STARTING_IS_GREY = false
+const STARTING_MAX_LIVES = 5
 
 const init = (game) => {
     game.registry.set(CURRENCY_KEY, STARTING_CURRENCY)
     game.registry.set(IS_GREY_KEY, STARTING_IS_GREY)
+    game.registry.set(MAX_LIVES_KEY, STARTING_MAX_LIVES)
+    game.registry.set(REINFORCEMENT_PURCHASES_KEY, [false, false, false, false])
 }
 
 export default new Phaser.Game ({
@@ -33,6 +41,8 @@ export default new Phaser.Game ({
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT,
     scene: [
+        LemonheadStore,
+
         WorldMap,  
         BuyTwice, 
         IceWorld,
@@ -44,7 +54,7 @@ export default new Phaser.Game ({
         Hospital,
         Hut, 
         Kitchen, 
-        LemonheadStore,
+        // LemonheadStore,
         Backpack,
         Store,
     ],
