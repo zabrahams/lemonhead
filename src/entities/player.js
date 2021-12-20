@@ -48,6 +48,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         scene.load.image(texture, textureAsset)
     }
 
+    static image(scene, x, y) {
+        let texture
+        if (scene.registry.get(IS_GREY_KEY)) {
+            texture = GREY_TEXTURE
+        } else {
+            texture = TEXTURE
+        }
+        console.log(texture)
+        return (scene.add.image(x, y, texture))
+    }
      /**
      * 
      * @param {Phaser.GameObjects.Sprite} vehicle 

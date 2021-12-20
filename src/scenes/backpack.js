@@ -1,4 +1,5 @@
 import Phaser from '../lib/phaser.js'
+import Player from "../entities/player.js"
 
 import WorldMapButton from '../entities/worldMapButton.js'
 import {CURRENCY_KEY} from '../dataConstants.js'
@@ -13,7 +14,7 @@ export default class Backpack extends Phaser.Scene
     preload () 
     {
         WorldMapButton.preload(this)
-        this.load.image('luna', 'assets/luna.png')
+        Player.preload(this)
 
         this.load.image('backpack', 'assets/backpack.png')
     }
@@ -21,7 +22,8 @@ export default class Backpack extends Phaser.Scene
     create () 
     {
         this.add.image(400, 300, 'backpack')
-        this.add.image(230, 330, 'luna').setScale(4.5)
+        Player.image(this, 230, 330).setScale(4.5)
+    
         new WorldMapButton(this, 50, (this.scale.height/2), 'world_map_button')
 
         // currency

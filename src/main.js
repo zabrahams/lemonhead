@@ -25,7 +25,7 @@ import {
 const WINDOW_WIDTH = 800
 const WINDOW_HEIGHT = 600
 
-const STARTING_CURRENCY = 100
+const STARTING_CURRENCY = 5
 const STARTING_IS_GREY = false
 const STARTING_MAX_LIVES = 5
 
@@ -40,9 +40,7 @@ export default new Phaser.Game ({
     type: Phaser.AUTO,
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT,
-    scene: [
-        LemonheadStore,
-
+    scene: [        
         WorldMap,  
         BuyTwice, 
         IceWorld,
@@ -54,7 +52,7 @@ export default new Phaser.Game ({
         Hospital,
         Hut, 
         Kitchen, 
-        // LemonheadStore,
+        LemonheadStore,
         Backpack,
         Store,
     ],
@@ -67,5 +65,8 @@ export default new Phaser.Game ({
     },
     callbacks: {
         postBoot: init,
+    },
+    audio: {
+        disableWebAudio: true
     }
 })

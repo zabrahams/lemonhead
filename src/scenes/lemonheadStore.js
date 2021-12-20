@@ -7,7 +7,7 @@ import {
 } from '../dataConstants.js'
 
 
-const COST_PER_LEMONHEAD = 10
+const COST_PER_LEMONHEAD = 100
 const CURRENCY_STYLE = { color: '#000', fontSize: 24 }
 
 
