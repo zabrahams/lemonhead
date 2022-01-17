@@ -1,3 +1,5 @@
+import PetFactory from "./pets/petFactory.js"
+
 const VELOCITY = 160
 const BOUNCE = 0.2
 
@@ -29,6 +31,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // Set the player physics properties
         this.setBounce(BOUNCE)
         this.setCollideWorldBounds(true)
+
+        const petFactory = new PetFactory()
+        const petClass = petFactory.create("blueDot")
+        this.pet = new petClass(scene, this.x, this.y)
     }
 
     /**
@@ -44,8 +50,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             texture = TEXTURE
             textureAsset = TEXTURE_ASSET
         }
-
         scene.load.image(texture, textureAsset)
+
+       const  petFactory = new PetFactory()
+       const petClass = petFactory.create("blueDot")
+       petClass.preload(scene)
+
     }
 
     static image(scene, x, y) {
@@ -68,6 +78,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         } else {
             this.moveSelf(cursors)
         }
+    
+        this.pet.update(this.x, this.y)
     }
 
     /**
@@ -76,10 +88,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
      */
     enterVehicle(vehicle) {
         this.vehicle = vehicle
+        if (this.pet) {
+            this.pet.hide()
+        }
     }
 
     exitVehicle() {
         this.vehicle = null
+        if (this.pet) {
+            this.pet.unhide()
+        }
     }
 
     moveWithVehicle() {
