@@ -7,7 +7,10 @@ const TEXTURE='luna'
 const TEXTURE_ASSET='assets/luna.png'
 const GREY_TEXTURE='lunaGrey'
 const GREY_TEXTURE_ASSET='assets/luna_grey.png'
-import {IS_GREY_KEY} from '../dataConstants.js'
+import {
+    IS_GREY_KEY, 
+    ACTIVE_PET_KEY
+} from '../dataConstants.js'
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     /**
@@ -32,9 +35,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setBounce(BOUNCE)
         this.setCollideWorldBounds(true)
 
-        const petFactory = new PetFactory()
-        const petClass = petFactory.create("blueDot")
-        this.pet = new petClass(scene, this.x, this.y)
+        // if there's an active pet set it
+        const activePet = scene.registry.get(ACTIVE_PET_KEY)
+        if (typeof activePet !== 'undefined') {
+            const petFactory = new PetFactory()
+            const petClass = petFactory.create(activePet)
+            this.pet = new petClass(scene, this.x, this.y)
+        }
     }
 
     /**
@@ -65,7 +72,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         } else {
             texture = TEXTURE
         }
-        console.log(texture)
         return (scene.add.image(x, y, texture))
     }
      /**
@@ -79,7 +85,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.moveSelf(cursors)
         }
     
-        this.pet.update(this.x, this.y)
+        if (this.pet) {
+            this.pet.update(this.x, this.y)
+        }
     }
 
     /**

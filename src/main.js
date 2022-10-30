@@ -19,28 +19,36 @@ import {
     CURRENCY_KEY, 
     IS_GREY_KEY, 
     REINFORCEMENT_PURCHASES_KEY, 
-    MAX_LIVES_KEY
+    MAX_LIVES_KEY,
+    PETS_OWNED_STATE_KEY,
+    ACTIVE_PET_KEY,
 } from './dataConstants.js'
 
 const WINDOW_WIDTH = 800
 const WINDOW_HEIGHT = 600
 
-const STARTING_CURRENCY = 5
+const STARTING_CURRENCY = 500
 const STARTING_IS_GREY = false
 const STARTING_MAX_LIVES = 5
+const STARTING_PET_STATE = {
+    blueDot: true
+}
+const STARTING_ACTIVE_PET = undefined
 
 const init = (game) => {
     game.registry.set(CURRENCY_KEY, STARTING_CURRENCY)
     game.registry.set(IS_GREY_KEY, STARTING_IS_GREY)
     game.registry.set(MAX_LIVES_KEY, STARTING_MAX_LIVES)
     game.registry.set(REINFORCEMENT_PURCHASES_KEY, [false, false, false, false])
+    game.registry.set(PETS_OWNED_STATE_KEY, STARTING_PET_STATE)
+    game.registry.set(ACTIVE_PET_KEY, STARTING_ACTIVE_PET)
 }
 
 export default new Phaser.Game ({
     type: Phaser.AUTO,
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT,
-    scene: [        
+    scene: [  
         WorldMap,  
         BuyTwice, 
         IceWorld,
