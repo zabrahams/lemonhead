@@ -48,6 +48,7 @@ export default class Backpack extends Phaser.Scene
             .setScrollFactor(0)
             .setOrigin(0.5, 0)    
 
+        
         new PetButton(
             {
                 scene: this,

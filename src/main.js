@@ -27,11 +27,11 @@ import {
 const WINDOW_WIDTH = 800
 const WINDOW_HEIGHT = 600
 
-const STARTING_CURRENCY = 500
+const STARTING_CURRENCY = 3
 const STARTING_IS_GREY = false
 const STARTING_MAX_LIVES = 5
 const STARTING_PET_STATE = {
-    blueDot: true
+    blueDot: false
 }
 const STARTING_ACTIVE_PET = undefined
 
@@ -49,6 +49,7 @@ export default new Phaser.Game ({
     width: WINDOW_WIDTH,
     height: WINDOW_HEIGHT,
     scene: [  
+        Store,
         WorldMap,  
         BuyTwice, 
         IceWorld,
@@ -62,7 +63,7 @@ export default new Phaser.Game ({
         Kitchen, 
         LemonheadStore,
         Backpack,
-        Store,
+        // Store,
     ],
     physics: {
         default: 'arcade',
